@@ -30,10 +30,24 @@ world = {
 
 current = "West of House"
 response = ""
+space = 0
 while True:
     if response == "quit":
         break
     # Find passage (update)
-    current_location = {}
+    for j in range(len(world["passages"][space]["links"])):
+      if world["passages"][space]["links"][j]["linkText"] == response.upper():
+        current = world["passages"][space]["links"][j]["passageName"]
+        if current == "North of House":
+          space = 1
+        else:
+          space = 0
+        
     # Display passage (render the world)
+    print(world["passages"][space]["name"] + "\n")
+    print(world["passages"][space]["cleanText"] + "\n")
+    for i in range(len(world["passages"][space]["links"])):
+      print(world["passages"][space]["links"][i]["linkText"] + "\n")
+      print(world["passages"][space]["links"][i]["passageName"] + "\n")
     # Ask for response (get input)
+    response = input("Where would you like to go? ")
